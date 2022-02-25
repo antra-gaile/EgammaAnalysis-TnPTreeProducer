@@ -24,21 +24,21 @@ varOptions.register(
     )
 
 varOptions.register(
-    "doPhoID", True,
+    "doPhoID", False,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     "Include tree for photon ID SF"
     )
 
 varOptions.register(
-    "doTrigger", True,
+    "doTrigger", False,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     "Include tree for Trigger SF"
     )
 
 varOptions.register(
-    "doRECO", True,
+    "doRECO", False,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     "Include tree for Reco SF"
@@ -84,7 +84,7 @@ varOptions.register(
     )
 
 varOptions.register(
-    "isAOD", True,
+    "isAOD", False,
     VarParsing.multiplicity.singleton,
     VarParsing.varType.bool,
     "use AOD"
@@ -114,7 +114,7 @@ if options['useAOD']:
 options['ELECTRON_CUTS']        = "ecalEnergy*sin(superClusterPosition.theta)>5.0 &&  (abs(-log(tan(superClusterPosition.theta/2)))<2.5)"
 options['SUPERCLUSTER_CUTS']    = "abs(eta)<2.5 &&  et>5.0"
 options['PHOTON_CUTS']          = "(abs(-log(tan(superCluster.position.theta/2)))<=2.5) && pt> 10"
-options['ELECTRON_TAG_CUTS']    = "(abs(-log(tan(superCluster.position.theta/2)))<=2.1) && !(1.4442<=abs(-log(tan(superClusterPosition.theta/2)))<=1.566) && pt >= 30.0"
+options['ELECTRON_TAG_CUTS']    = "(abs(-log(tan(superCluster.position.theta/2)))<=2.1) && !(1.4442<=abs(-log(tan(superClusterPosition.theta/2)))<=1.566) && pt >= 5.0"
 
 options['MAXEVENTS']            = cms.untracked.int32(varOptions.maxEvents) 
 #options['MAXEVENTS']            = 2000
@@ -165,7 +165,7 @@ else:
 #options['HLTFILTERTOMEASURE']  = cms.vstring("hltEle32WPTightGsfTrackIsoFilter")
 
 ## UL 2017
-options['TnPPATHS']            = cms.vstring("HLT_Ele32_WPTight_Gsf_L1DoubleEG_v*")
+options['TnPPATHS']            = cms.vstring("HLT_*")
 options['TnPHLTTagFilters']    = cms.vstring("hltEle32L1DoubleEGWPTightGsfTrackIsoFilter","hltEGL1SingleEGOrFilter")
 
 ## UL 2018
@@ -236,7 +236,7 @@ process.maxEvents = cms.untracked.PSet( input = options['MAXEVENTS'])
 #    input = cms.untracked.int32(options['MAXEVENTS'] )
 #)
 
-if options['addSUSY']    : print "  -- Including variables for SUSY       -- "
+if options['addSUSY']   : print "  -- Including variables for SUSY       -- "
 if options['DoTrigger'] : print "  -- Producing HLT (trigger ele) efficiency tree -- "
 if options['DoRECO']    : print "  -- Producing RECO SF tree        -- "
 if options['DoEleID']   : print "  -- Producing electron SF tree    -- "
